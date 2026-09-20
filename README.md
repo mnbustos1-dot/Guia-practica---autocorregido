@@ -33,3 +33,18 @@ Paso 4. Formatear la partición
 $ sudo mkfs.ext4 -L "UPLOADS_SEC" ${LOOP_DEV}p1
 
 Paso 5. Montar con hardening
+$ sudo mkdir -p /mnt/uploads
+$ sudo mount -o defaults,noexec,nosuid ${LOOP_DEV}p1 /mnt/ulpoads
+$ sudo mount -o defaults,noexec,nodev ${LOOP_DEV}p1 /mnt/ulpoads
+$ sudo umount /mnt/uploads
+$ sudo mount -o defaults,noexec,nosuid,nodev ${LOOP_DEV}p1 /mnt/ulpoads
+
+Paso 6. Verificar que noexec funciona
+$ echo '#!/bin/bash' | sudo tee 
+$ echo '#!/bin/bash' | sudo tee /mnt/ulpoads/test.sh
+$ echo '#!/bin/bash' | sudo tee /mnt/ulpoads/test.sh
+$ echo 'echo"Escrito de prueba"' | sudo tee -a /mnt/ulpoads/test.sh
+$ sudo chmod +x /mnt/ulpoads/test.sh
+$ /mnt/ulpoads/test.sh
+
+Paso 7. Hacer el montaje persistente
